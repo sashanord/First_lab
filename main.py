@@ -8,12 +8,16 @@ from My_sortes import quick_sort
 from My_sortes import merge_sort
 from My_sortes import insert_sort
 
+"""Размерность сгенерированных наборов данных"""
 nums = [100, 250, 500, 750, 1000, 1250, 1500]
 
+
+"""Запись сгенерированных файлов в файл"""
 with pd.ExcelWriter("./trains.xlsx") as writer:
     for i in nums:
         pd.DataFrame(generate(i)).to_excel(writer, sheet_name=f"{i}", index=False)
 
+"""Чтение из файла и запись в словарь, для дальнейшей сортировки"""
 trains = {}
 for i in nums:
     curr = pd.read_excel('./trains.xlsx', sheet_name=f'{i}').to_dict('records')
@@ -25,10 +29,13 @@ for i in nums:
         )
     trains[i] = curr_trains
 
+"""Списки для хранения времени, потраченного на сортировку"""
 time_spend_insert = []
 time_spend_quick = []
 time_spend_merge = []
 
+
+"""Сортировка данных, прочитанных из файла"""
 for j in nums:
     sorted_arrays = []
 
@@ -73,6 +80,7 @@ for j in nums:
         final_dict['Номер поезда'] = num
         final_dict['Тип поезда'] = type_
 
+        """Запись в разные файлы в зависимости от метода сортировки"""
         if i == 0:
             file_name = "./trains_sorted_insert.xlsx"
         elif i == 1:
@@ -80,6 +88,7 @@ for j in nums:
         else:
             file_name = "./trains_sorted_merge.xlsx"
 
+        """Если это первый набор данных, создаем файл, если нет - дописываем с сущетвующий"""
         if j == 100:
             mode = 'w'
         else:

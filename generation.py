@@ -1,16 +1,17 @@
-# генерация списка новых объектов класса Train
+"""Модуль для генерации объектов типа Train"""
 
 import datetime
 import random
 
+"""Список возможных типов поезда"""
 types = ['скорый', 'пассажирский', 'товарный']
 
-
+"""Вспомогательная функция, возвращает сгенерированную дату"""
 def generate_date():
     d = datetime.date(random.randrange(2000, 2023), random.randrange(1, 13), random.randrange(1, 28))
     return d.strftime("%m/%d/%Y")
 
-
+"""Вспомогательная функция, возвращает сгенерированное время"""
 def generate_time():
     h = random.randrange(0, 24)
     h = f'0{h}' if h < 10 else str(h)
@@ -20,7 +21,7 @@ def generate_time():
 
     return f'{h}:{m}'
 
-
+"""Возвращает сгенерированнуый словарь для записи в DataFrame, каждое значение-список длины n"""
 def generate(n):
     final_dict = {}
     dates = []
